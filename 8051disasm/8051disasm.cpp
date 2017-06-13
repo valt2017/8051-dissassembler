@@ -297,11 +297,12 @@ int main(int argc, char ** argv)
 	while(FilePos < FileSize)
 	{
 		printf("%06X\t", FilePos);
-		for (int j = 0; j < Instructions[memblock[FilePos]].Bytes; j++)
-			printf("%02X", memblock[FilePos + j]);
-		printf("\t%s", (Instructions[memblock[FilePos]].Mnemonic).c_str());
-		printf("\t%s\n", (Instructions[memblock[FilePos]].Operands).c_str());
-		FilePos += Instructions[memblock[FilePos]].Bytes;
+		unsigned char InstrID = memblock[FilePos];
+		for (int j = 0; j < Instructions[InstrID].Bytes; j++)
+			printf("%02X", (unsigned char)memblock[FilePos + j]);
+		printf("\t%s", (Instructions[InstrID].Mnemonic).c_str());
+		printf("\t%s\n", (Instructions[InstrID].Operands).c_str());
+		FilePos += Instructions[InstrID].Bytes;
 	}
 	delete[] memblock;
 	return 0;
